@@ -20,8 +20,23 @@ body::before {
     height: 100%;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23d63384" fill-opacity="0.3" transform="scale(0.5)" transform-origin="center" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
     background-size: 100px 100px; 
-    
     z-index: -1;
+
+    /* --- ADD THIS LINE --- */
+    /* 'moveHearts' is the name, '20s' is speed, 'linear' is smooth, 'infinite' never stops */
+    animation: moveHearts 2s linear infinite;
+}
+
+/* --- ADD THIS KEYFRAME BLOCK --- */
+@keyframes moveHearts {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        /* This moves the background down by 100px (matching your background-size) */
+        /* to ensure the loop is perfectly seamless */
+        background-position: 0 100px;
+    }
 }
 
 .container {
@@ -33,10 +48,22 @@ h1 {
     font-size: 2.5rem;
     margin-bottom: 30px;
     color: #d63384;
+    background:rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 15px 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Soft pink glow shadow */
+    box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    overflow: hidden;
 }
 
 #main-gif {
-    width: 450px;
+    width: 50%;
     border-radius: 30px;
     animation: floating 3s ease-in-out infinite;
 }
@@ -63,7 +90,7 @@ h1 {
     display: flex; 
     justify-content: center; 
     align-items: center;
-    overflow: hidden;
+    gap: 40px; /* Adjust this to change the initial distance between buttons */
 }
 
 .buttons {
@@ -91,9 +118,10 @@ button {
     color: white;
     font-size: 24px;
     padding: 20px 45px;
-    margin-right: 20px;
     z-index: 5;
-    transition: transform 0.3s ease-out;
+    /* transition: transform 0.3s ease-out; */
+    transition: all 0.8s ease-in-out;
+    /* No margins needed, Flexbox gap will handle the spacing */
 }
 
 #yesBtn:hover {
@@ -104,7 +132,10 @@ button {
 #noBtn {
     background: linear-gradient(135deg, #d63384 0%, #833ab4 100%);
     color: white;
+    font-size: 18px;
+    padding: 15px 30px;
     z-index: 10;
-    /* Adding a subtle glow that matches the new violet tone */
     box-shadow: 0 4px 15px rgba(131, 58, 180, 0.3);
+    
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }

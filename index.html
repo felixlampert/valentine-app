@@ -26,36 +26,38 @@
         let yesScale = 1;
 
         noBtn.addEventListener('mouseover', () => {
-            // 1. Get the current position
+            // 1. Get current position BEFORE switching to absolute
             const curX = noBtn.offsetLeft;
             const curY = noBtn.offsetTop;
 
-            // 2. Define a minimum and maximum jump distance
+            // 2. Set the button to absolute so it can jump
+            // We do this inside the listener so it stays centered on page load
+            if (noBtn.style.position !== 'absolute') {
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = curX + 'px';
+                noBtn.style.top = curY + 'px';
+                noBtn.style.margin = '0'; // Remove any flex margins
+            }
+
             const minJump = 100; 
             const maxJump = 200;
 
-            // 3. Calculate a "jump" that is at least minJump pixels
-            // Math.random() > 0.5 determines if it goes left/up or right/down
             let moveX = (minJump + Math.random() * (maxJump - minJump)) * (Math.random() > 0.5 ? 1 : -1);
             let moveY = (minJump + Math.random() * (maxJump - minJump)) * (Math.random() > 0.5 ? 1 : -1);
 
-            // 4. New coordinates
             let newX = curX + moveX;
             let newY = curY + moveY;
 
-            // 5. "Bounce" off the walls if the jump goes outside the box
             const maxX = buttonsBox.clientWidth - noBtn.offsetWidth;
             const maxY = buttonsBox.clientHeight - noBtn.offsetHeight;
 
             if (newX < 0 || newX > maxX) newX = Math.random() * maxX;
             if (newY < 0 || newY > maxY) newY = Math.random() * maxY;
 
-            // 6. Apply position
-            noBtn.style.position = 'absolute';
+            // Apply new position
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
 
-            // 7. Grow the Sì button
             yesScale += 0.15;
             yesBtn.style.transform = `scale(${yesScale})`;
         });
