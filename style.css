@@ -4,9 +4,24 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #ffe4e1; /* Soft Pink */
+    /* Fades from a light pink center to a deeper rose on the outside */
+    background: radial-gradient(circle, #fff0f3 0%, #ffb6c1 100%);
     font-family: 'Arial', sans-serif;
     overflow: hidden;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23d63384" fill-opacity="0.3" transform="scale(0.5)" transform-origin="center" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+    background-size: 100px 100px; 
+    
+    z-index: -1;
 }
 
 .container {
@@ -14,26 +29,41 @@ body {
 }
 
 h1 {
+    font-family: 'Pacifico', cursive; /* A romantic, handwritten look */
+    font-size: 2.5rem;
+    margin-bottom: 30px;
     color: #d63384;
 }
 
 #main-gif {
-    width: 250px;
-    border-radius: 15px;
+    width: 450px;
+    border-radius: 30px;
+    animation: floating 3s ease-in-out infinite;
 }
 
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
 .buttons-box {
     position: relative; 
     width: 60vw; 
     height: 350px; 
     margin: 20px auto 0;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    border: 2px solid rgba(214, 51, 132, 0.3);
+    /* Semi-transparent white */
+    background: rgba(255, 255, 255, 0.3); 
+    border-radius: 30px;
+    /* The "Glass" secret: blur + border */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Soft pink glow shadow */
+    box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
     display: flex; 
     justify-content: center; 
     align-items: center;
-    overflow: hidden; /* Prevents the giant button from creating scrollbars */
+    overflow: hidden;
 }
 
 .buttons {
@@ -44,27 +74,37 @@ h1 {
 }
 
 button {
-    padding: 15px 25px;
+    padding: 15px 30px;
     font-size: 18px;
     border: none;
-    border-radius: 50px; /* Rounded buttons */
+    border-radius: 50px;
     cursor: pointer;
-    transition: 0.2s;
+    font-weight: bold;
+    /* Smooth transition for hover effects */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Subtle shadow to lift it off the glass */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 #yesBtn {
-    background-color: #28a745;
+    background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%);
     color: white;
     font-size: 24px;
-    padding: 20px 40px;
+    padding: 20px 45px;
     margin-right: 20px;
-    z-index: 5; /* Keeps it under the No button initially */
-    transition: transform 0.3s ease-out; /* Makes growth smooth */
+    z-index: 5;
+    transition: transform 0.3s ease-out;
+}
+
+#yesBtn:hover {
+    box-shadow: 0 8px 25px rgba(30, 81, 40, 0.6);
+    transform: scale(1.05); /* Slight pulse on hover */
 }
 
 #noBtn {
-    background-color: #dc3545;
+    background: linear-gradient(135deg, #d63384 0%, #833ab4 100%);
     color: white;
-    z-index: 10; /* Keeps it on top so it's catchable until Yes gets too big */
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    /* Adding a subtle glow that matches the new violet tone */
+    box-shadow: 0 4px 15px rgba(131, 58, 180, 0.3);
 }
