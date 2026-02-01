@@ -10,7 +10,10 @@
     <body>
         <div class="container">
             <div class="gif-window">
-                <img id="main-gif" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDgzcDIycXJ0MDFra2dnNTV1azh4MzNrbjBhbG93cWx0ZGcwYjNjNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute cat">
+                <img id="main-gif"
+                src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDgzcDIycXJ0MDFra2dnNTV1azh4MzNrbjBhbG93cWx0ZGcwYjNjNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"
+                onclick="toggleGif()"
+                alt="Cute cat">
             </div>
             <div class="header-container">
                 <h1>Mariutsci, vuoi essere il mio Valentino?</h1>
@@ -25,6 +28,18 @@
         </div>
 
         <script>
+            const gifElement = document.getElementById('main-gif');
+            const gif1 = "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDgzcDIycXJ0MDFra2dnNTV1azh4MzNrbjBhbG93cWx0ZGcwYjNjNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif";
+            const gif2 = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWYxaXljcTVveWYwM3B1ZTdxeHN3NjByZTltaDN5YmR5dG5uaXp6cCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/13ByqbM0hgfN7y/giphy.gif"; 
+
+            function toggleGif() {
+                if (gifElement.src === gif1) {
+                    gifElement.src = gif2;
+                } else {
+                    gifElement.src = gif1;
+                }
+            }
+
             const commentary = document.getElementById('commentary');
             let missCount = 0;
 
@@ -79,8 +94,13 @@
                 noBtn.style.left = newX + 'px';
                 noBtn.style.top = newY + 'px';
 
-                yesScale += 0.3;
-                yesBtn.style.transform = `scale(${yesScale})`;
+                if (yesScale < 2.5) { // Change 2.5 to whatever max size you prefer
+                    yesScale += 0.15;
+                    yesBtn.style.transform = `scale(${yesScale})`;
+                } else {
+                    // Once it hits the limit, give it a pulsing animation
+                    yesBtn.classList.add('max-size-pulse');
+                }
 
                 if (missCount < messages.length) {
                     commentary.textContent = messages[missCount];
