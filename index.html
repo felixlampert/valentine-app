@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="container">
-            <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIyc3B6eGZ0bmR0NjR0YmR0amR0amR0amR0amR0amR0amR0amR0JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute cat">
+            <img id="main-gif" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDgzcDIycXJ0MDFra2dnNTV1azh4MzNrbjBhbG93cWx0ZGcwYjNjNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute cat">
             <h1>Mariutsci, vuoi essere il mio Valentino?</h1>
             
             <div class="buttons-box">
@@ -18,24 +18,32 @@
         </div>
 
         <script>
-            const noBtn = document.getElementById('noBtn');
-            const buttonsBox = document.querySelector('.buttons-box');
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const buttonsBox = document.querySelector('.buttons-box');
+        
+        // Initialize the scale for the "Sì" button
+        let yesScale = 1;
+
+        noBtn.addEventListener('mouseover', () => {
+            // 1. Calculate boundaries based on the white box
+            const maxX = buttonsBox.clientWidth - noBtn.offsetWidth;
+            const maxY = buttonsBox.clientHeight - noBtn.offsetHeight;
             
-            noBtn.addEventListener('mouseover', () => {
-                // 1. Calculate boundaries based on the white box
-                const maxX = buttonsBox.clientWidth - noBtn.offsetWidth;
-                const maxY = buttonsBox.clientHeight - noBtn.offsetHeight;
-                
-                // 2. Generate random positions
-                const randomX = Math.floor(Math.random() * maxX);
-                const randomY = Math.floor(Math.random() * maxY);
-                
-                // 3. Force absolute positioning relative to buttons-box
-                noBtn.style.position = 'absolute';
-                noBtn.style.left = randomX + 'px';
-                noBtn.style.top = randomY + 'px';
-                noBtn.style.margin = '0'; // Removes flex gap/margin interference
-            });
-        </script>    
+            // 2. Generate random positions
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            // 3. Move the No button
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.margin = '0'; 
+
+            // 4. Grow the Sì button
+            yesScale += 0.3; // Increases size by 15% each miss
+            yesBtn.style.transform = `scale(${yesScale})`;
+        });
+        </script>
     </body>
 </html>

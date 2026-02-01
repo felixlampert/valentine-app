@@ -24,8 +24,8 @@ h1 {
 
 .buttons-box {
     position: relative; 
-    width: 60vw; /* Slightly wider for better escape room */
-    height: 350px; /* Fixed height is better for bounding box math */
+    width: 60vw; 
+    height: 350px; 
     margin: 20px auto 0;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 20px;
@@ -33,6 +33,7 @@ h1 {
     display: flex; 
     justify-content: center; 
     align-items: center;
+    overflow: hidden; /* Prevents the giant button from creating scrollbars */
 }
 
 .buttons {
@@ -54,15 +55,16 @@ button {
 #yesBtn {
     background-color: #28a745;
     color: white;
-    font-size: 24px; /* Larger than No */
+    font-size: 24px;
     padding: 20px 40px;
     margin-right: 20px;
+    z-index: 5; /* Keeps it under the No button initially */
+    transition: transform 0.3s ease-out; /* Makes growth smooth */
 }
 
 #noBtn {
     background-color: #dc3545;
     color: white;
-    z-index: 10;
-    /* We remove the transition or keep it very fast so they can't 'catch' it during movement */
+    z-index: 10; /* Keeps it on top so it's catchable until Yes gets too big */
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
